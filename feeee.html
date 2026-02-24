@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yetkazib berish | GO'SHT DO'KON – 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #05070f;
+            --surface: #0f1625;
+            --primary: #ef4444;
+            --primary-glow: rgba(239, 68, 68, 0.6);
+            --accent: #22c55e;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #1e293b;
+            --radius: 1.2rem;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @keyframes neon-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px var(--primary-glow);
+            }
+
+            50% {
+                box-shadow: 0 0 25px var(--primary-glow), 0 0 40px var(--primary-glow);
+            }
+        }
+
+        /* ===================== HEADER ===================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 22, 37, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background: var(--primary);
+            transition: width 0.35s var(--ease);
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .cart-btn {
+            width: 48px;
+            height: 48px;
+            background: var(--surface);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.3rem;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            transition: all 0.35s;
+        }
+
+        .cart-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 20px;
+            height: 20px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--bg);
+        }
+
+        .mobile-menu-btn {
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--surface);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            transform: translateX(100%);
+            transition: transform 0.4s var(--ease);
+            z-index: 1050;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu a {
+            font-size: 1.8rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+        }
+
+        /* ===================== HERO ===================== */
+        .page-hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2.8rem, 9vw, 5.5rem);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.2rem;
+            animation: neon-pulse 6s infinite;
+        }
+
+        .page-hero p {
+            font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+            max-width: 720px;
+            margin: 0 auto 2.5rem;
+            color: var(--muted);
+        }
+
+        /* ===================== DELIVERY INFO ===================== */
+        .delivery-info {
+            padding: 4rem 0 5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .info-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem 1.8rem;
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow), var(--primary-glow);
+        }
+
+        .info-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.65rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .info-card p,
+        .info-card ul {
+            color: var(--muted);
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card ul li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.6rem;
+            position: relative;
+        }
+
+        .info-card ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+
+        /* ===================== MAP ===================== */
+        .map-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .map-section h2 {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .map-section iframe {
+            width: 100%;
+            height: clamp(320px, 55vw, 480px);
+            max-width: 1000px;
+            border: none;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===================== FOOTER ===================== */
+        footer {
+            background: #000;
+            color: var(--muted);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 360px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.3rem;
+            color: white;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(6px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.3rem;
+            color: white;
+            transition: all 0.35s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+                font-size: 1.8rem;
+                background: none;
+                border: none;
+                color: var(--text);
+                cursor: pointer;
+            }
+
+            nav>ul {
+                display: none;
+            }
+
+            .header-inner {
+                height: 64px;
+            }
+
+            .page-hero {
+                padding-top: clamp(100px, 28vw, 140px);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 1.4rem;
+            }
+        }
+
+        /* iPhone Pro / Pro Max (430–440px) */
+        @media (max-width: 440px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: clamp(1.4rem, 6vw, 1.9rem);
+            }
+
+            .page-hero h1 {
+                font-size: clamp(2.4rem, 11vw, 3.8rem);
+            }
+
+            .page-hero p {
+                font-size: 1.1rem;
+                padding: 0 0.8rem;
+            }
+
+            .info-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .info-card p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Eng kichik iPhone'lar (375px va undan kichik) */
+        @media (max-width: 390px) {
+            .container {
+                padding: 0 0.9rem;
+            }
+
+            .info-card {
+                padding: 1.3rem 1.1rem;
+            }
+
+            .social-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Landscape modeda yaxshiroq ko‘rinish */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .page-hero {
+                padding: 80px 0 40px;
+            }
+
+            .delivery-info {
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <i class="fas fa-drumstick-bite"></i>
+                GO'SHT DO'KON
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="#">Bosh sahifa</a></li>
+                    <li><a href="./dedahon uchunloyiha.html">Mahsulotlar</a></li>
+                    <li><a href="#">Yetkazib berish</a></li>
+                    <li><a href="./bog'lanish.html">Bog‘lanish</a></li>
+                </ul>
+            </nav>
+
+            <div class="cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+
+            <button class="mobile-menu-btn" aria-label="Menyu ochish">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="./dedahon uchunloyiha.html">Bosh sahifa</a>
+        <a href="./dedahon uchunloyiha.html">Mahsulotlar</a>
+        <a href="./feeee.html" class="active">Yetkazib berish</a>
+        <a href="#">Bog‘lanish</a>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Yetkazib berish</h1>
+            <p>Biz sizning uyingizga yangi va halol go‘sht mahsulotlarini tez va xavfsiz yetkazib beramiz</p>
+        </div>
+    </section>
+
+    <section class="delivery-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-truck-fast"></i>
+                    <h3>Tez yetkazib berish</h3>
+                    <p>Namangan shahri ichida buyurtma berilganidan keyin <strong>1–2 soat</strong> ichida yetkazib
+                        beramiz.</p>
+                    <p>Buyurtma summasi 300 000 so‘mdan yuqori bo‘lsa — yetkazib berish <strong>bepul</strong>.</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-shield-halal"></i>
+                    <h3>Xavfsiz va halol</h3>
+                    <p>Barcha mahsulotlar halol sertifikatli va yangi kesilgan.</p>
+                    <p>Mahsulotlar maxsus sovuq zanjir tizimi bilan yetkaziladi — sifat o‘zgarmaydi.</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>To‘lov usullari</h3>
+                    <ul>
+                        <li>Naqd pul (yetkazib beruvchiga)</li>
+                        <li>Click / Payme / Uzcard orqali onlayn</li>
+                        <li>Terminal orqali (yetkazib beruvchi bilan)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h2>Biz qayerdamiz</h2>
+            <p>Namangan shahri, Sho'ro tumani (asosiy ombor)</p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.819427441!2d69.248!3d41.2995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b!5e0!3m2!1suz!2suz!4v1690000000000"
+                allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-drumstick-bite"></i>
+                        GO'SHT DO'KON
+                    </div>
+                    <p class="footer-description">
+                        2026-yilda ham eng sifatli, halol va yangi go‘sht mahsulotlari sizning stolingizda. Namangan va
+                        yaqin viloyatlarga 1–2 soat ichida yetkazib beramiz.
+                    </p>
+                </div>
+
+                <div>
+                    <h4>Tezkor havolalar</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Bosh sahifa</a></li>
+                        <li><a href="./dedahon uchunloyiha.html">Mahsulotlar</a></li>
+                        <li><a href="./feeee.html">Yetkazib berish</a></li>
+                        <li><a href="./bog'lanish.html">Bog‘lanish</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Biz bilan aloqa</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +998 97 257 77 72</li>
+                        <li><i class="fas fa-envelope"></i> info@goshtdokon.uz</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Namangan sh., uychi tumani</li>
+                    </ul>
+
+                    <div class="social-icons">
+                        <a href="t.me/hoshimjon7777" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                © 2026 GO'SHT DO'KON. Barcha huquqlar himoyalangan.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            // Ikonani o'zgartirish (x ga)
+            const icon = mobileBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Menyu ochiq bo'lsa va link bosilsa yopilishi uchun
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const icon = mobileBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+        
+    </script>
+</body>
+
+</html>

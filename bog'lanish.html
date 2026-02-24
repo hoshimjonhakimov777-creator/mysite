@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bog‘lanish | GO'SHT DO'KON – 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+
+    <style>
+        :root {
+            --bg: #05070f;
+            --surface: #0f1625;
+            --primary: #ef4444;
+            --primary-glow: rgba(239, 68, 68, 0.6);
+            --accent: #22c55e;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #1e293b;
+            --radius: 1.6rem;
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight:900; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        @keyframes neon-pulse {
+            0%,100% { box-shadow: 0 0 10px var(--primary-glow); }
+            50%     { box-shadow: 0 0 30px var(--primary-glow), 0 0 50px var(--primary-glow); }
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(15,22,37,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        nav a:hover, nav a.active { color: var(--primary); }
+
+        .cart-btn {
+            position: relative;
+            width: 56px; height: 56px;
+            background: var(--surface);
+            border-radius: 50%;
+            display: grid; place-items: center;
+            font-size: 1.4rem;
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .cart-btn:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--primary-glow);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.9rem;
+            background: none;
+            border: none;
+            color: var(--text);
+        }
+
+        .page-hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            background: linear-gradient(to bottom, #0a0e17, #000);
+        }
+
+        .page-hero h1 {
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            animation: neon-pulse 5s infinite;
+        }
+
+        .page-hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--muted);
+        }
+
+        .contact-section { padding: 6rem 0; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+        }
+
+        .contact-form {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .contact-form h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 0.8rem;
+            color: var(--text);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), #f87171);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--primary-glow);
+        }
+
+        .map-section { padding: 4rem 0; text-align: center; }
+
+        .map-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .map-section iframe {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            border: none;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            background: #000;
+            color: var(--muted);
+            padding: 6rem 0 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 4rem;
+        }
+
+        .footer-logo {
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 380px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1.6rem;
+            color: white;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(8px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: grid; place-items: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.4s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: var(--primary-glow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 767px) {
+            .mobile-menu-btn { display: block; }
+            nav > ul { display: none; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .map-section iframe { height: 350px; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .social-icons { justify-content: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-drumstick-bite"></i>
+                GO'SHT DO'KON
+            </a>
+
+            <nav>
+                <ul>
+                    <li><a href="#">Bosh sahifa</a></li>
+                    <li><a href="./dedahon uchunloyiha.html">Mahsulotlar</a></li>
+                    <li><a href="./feeee.html">Yetkazib berish</a></li>
+                    <li><a href="./bog'lanish.html" class="active">Bog‘lanish</a></li>
+                </ul>
+            </nav>
+
+            <div class="cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Bog‘lanish</h1>
+            <p>Biz bilan tez va qulay aloqada bo‘ling! Savollaringizga 24/7 javob beramiz.</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Biz bilan aloqa</h2>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone-volume"></i>
+                        <div>
+                            <strong>Telefon:</strong><br>
+                            +998 97 257 77 72<br>
+                            +998 99 497 16 09 (Qo‘shimcha)
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            info@goshtdokon.uz<br>
+                            support@goshtdokon.uz
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Manzil:</strong><br>
+                            Toshkent sh., Chilanzor tumani<br>
+                            (Ombor va ofis: Chilanzor-9, 45-uy)
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Ish vaqti:</strong><br>
+                            Har kuni: 07:00 – 23:00
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Xabar yuborish</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Ism va familiyangiz</label>
+                            <input type="text" id="name" placeholder="Ism Familiya">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Telefon raqamingiz <span style="color:#ff4d4d;">*</span></label>
+                            <input type="tel" id="phone" placeholder="+998 __ ___ __ __" required pattern="\+998[0-9 ]{9,12}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Xabaringiz <span style="color:#ff4d4d;">*</span></label>
+                            <textarea id="message" placeholder="Savolingiz yoki taklifingizni yozing..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Telegramga yuborish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h2>Bizni toping</h2>
+            <p>Toshkent sh., Chilanzor tumani (asosiy ombor va ofis)</p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.819427441!2d69.248!3d41.2995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b!5e0!3m2!1suz!2suz!4v1690000000000"
+                allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-drumstick-bite"></i>
+                        GO'SHT DO'KON
+                    </div>
+                    <p class="footer-description">
+                        Eng sifatli va halol go‘sht mahsulotlari. Toshkent va yaqin viloyatlarga 1–2 soatda yetkazib
+                        beramiz.
+                    </p>
+                </div>
+
+                <div>
+                    <h4>Tezkor havolalar</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Bosh sahifa</a></li>
+                        <li><a href="./dedahon uchunloyiha.html">Mahsulotlar</a></li>
+                        <li><a href="./feeee.html">Yetkazib berish</a></li>
+                        <li><a href=".">Bog‘lanish</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>Biz bilan aloqa</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +998 97 257 77 72</li>
+                        <li><i class="fas fa-envelope"></i> info@goshtdokon.uz</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Namangan sh., uychi tumani</li>
+                    </ul>
+
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                © 2026 GO'SHT DO'KON. Barcha huquqlar himoyalangan.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Forma yuborish → Telegramga o'tkazish
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            // Ma'lumotlarni olish
+            const name = document.getElementById("name").value.trim() || "Noma'lum mijoz";
+            const phone = document.getElementById("phone").value.trim();
+            const messageText = document.getElementById("message").value.trim();
+
+            // Majburiy maydonlarni tekshirish
+            if (!phone || !messageText) {
+                alert("Iltimos, telefon raqami va xabar matnini to'ldiring!");
+                return;
+            }
+
+            // Telegram uchun xabar matnini shakllantirish
+            let tgMessage = "📩 *YANGI XABAR (Bog‘lanish sahifasidan)*\n\n";
+            tgMessage += `Vaqt: ${new Date().toLocaleString('uz-UZ')}\n\n`;
+            tgMessage += `👤 Ism: ${name}\n`;
+            tgMessage += `📞 Telefon: ${phone}\n`;
+            tgMessage += `\n💬 Xabar:\n${messageText}\n\n`;
+            tgMessage += "Iltimos, tez orada javob bering!";
+
+            // Telegram link tayyorlash
+            const encoded = encodeURIComponent(tgMessage);
+            const telegramLink = `https://t.me/hoshimjon7777?text=${encoded}`;
+
+            // Telegramni ochish
+            window.open(telegramLink, "_blank");
+
+            // Foydalanuvchiga xabar
+            alert("Xabaringiz Telegramga tayyorlandi!\n\n\"Yuborish\" tugmasini bosing.");
+
+            // Formani tozalash
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+
+</body>
+</html>
